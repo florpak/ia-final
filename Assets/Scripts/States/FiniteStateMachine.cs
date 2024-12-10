@@ -6,14 +6,14 @@ public class FiniteStateMachine : MonoBehaviour
 {
     Dictionary<EnemyState, State> allStates = new Dictionary<EnemyState, State>();
     State _currentState;
-    Enemy enemy;
+    Leader enemy;
 
 
     private void Start()
     {
         EnemyFollow.onFoundPlayer += SetFollowState;
     }
-    public FiniteStateMachine(Enemy enemy)
+    public FiniteStateMachine(Leader enemy)
     {
         this.enemy = enemy;
     }

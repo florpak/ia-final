@@ -51,33 +51,6 @@ public class Node : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            
-        }
-        if (Input.GetMouseButtonDown(2) || Input.GetKeyDown(KeyCode.F))
-        {
-            isBlocked = true;
-
-            //GameManager.Instance.PaintGameObject(gameObject, isBlocked ? Color.grey : Color.white);
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            SetCost(cost + 1);
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            SetCost(cost - 1);
-        }
-    }
-
     public void SetCost(float newCost)
     {
         cost = Mathf.Clamp(newCost, 1, 99);
