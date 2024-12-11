@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
         PaintGameObject(_goalNode.gameObject, Color.red);
     }
 
+    public void SetNode(List<Node> nodes)
+    {
+        allNodes = nodes;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

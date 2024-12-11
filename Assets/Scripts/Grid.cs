@@ -12,6 +12,8 @@ public class Grid : MonoBehaviour
     
     void Start()
     {
+        List<Node> listNodes = new List<Node>();
+
         _grid = new GameObject[_width, _height];
         for (int x = 0; x < _width; x++)
         {
@@ -20,8 +22,11 @@ public class Grid : MonoBehaviour
                 GameObject newNode = Instantiate(_nodePrefab, transform);
                 newNode.GetComponent<Node>().Initialize(x, y, new Vector3(x + x * _offset, y + y * _offset, 0), this);
                 _grid[x, y] = newNode;
+                listNodes.Add(newNode.GetComponent<Node>());
             }
         }
+
+        GameManager.Instance.SetNode(listNodes);
     }
 
     public Node GetNode(int x, int y)

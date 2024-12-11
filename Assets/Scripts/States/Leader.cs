@@ -9,9 +9,8 @@ public class Leader : MonoBehaviour
     [SerializeField] protected float velocity;
     [SerializeField] protected int waypointNumber = 0;
     [SerializeField] protected EnemyFieldOfView fieldOfView;
+    [SerializeField] public int keyCode;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         fieldOfView = GetComponent<EnemyFieldOfView>();
@@ -20,8 +19,8 @@ public class Leader : MonoBehaviour
 
         fsm.AddState(EnemyState.BackToPatrol, new EnemyBackToPatrol());
         fsm.AddState(EnemyState.Follow, new EnemyFollow());
-        fsm.AddState(EnemyState.Patrol, new LeaderIdleState());
-        fsm.ChangeState(EnemyState.Patrol, transform.position);
+        fsm.AddState(EnemyState.Idle, new LeaderIdleState());
+        fsm.ChangeState(EnemyState.Idle, transform.position);
         EnemyFollow.onFoundPlayer += SetFollowState;
     }
 
@@ -37,21 +36,12 @@ public class Leader : MonoBehaviour
     {
         fsm.Update();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(keyCode))
         {
             Vector3 click = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             click = new Vector3(click.x, click.y, 0);
 
             fsm.ChangeState(EnemyState.Chase, click);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-
-        }
-        if (Input.GetMouseButtonDown(2))
-        {
-            
         }
     }
 

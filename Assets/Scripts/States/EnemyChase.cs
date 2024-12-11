@@ -21,7 +21,7 @@ public class EnemyChase : State
         Node nearestNodeToTarget = null;
         foreach (Node node in GameManager.Instance.GetNodes())
         {
-            float nodeDistanceToNode = Vector3.Distance(node.transform.position, enemy.transform.position);
+            float nodeDistanceToNode = Vector3.Distance(node.transform.position, leader.transform.position);
             if (nodeDistanceToNode < nearestDistance)
             {
                 nearestDistance = nodeDistanceToNode;
@@ -53,14 +53,15 @@ public class EnemyChase : State
 
     public override void OnUpdate()
     {
-        if(enemy.GetTargetPlayer()!= null)
-        {
-            fsm.ChangeState(EnemyState.Follow,enemy.GetTargetPlayer().transform.position);
-        }
+        //if(leader.GetTargetPlayer()!= null)
+        //{
+        //    fsm.ChangeState(EnemyState.Follow,leader.GetTargetPlayer().transform.position);
+        //}
         if (_path != null && _path.Count > 0)
         {
-            Vector3 dir = _path[0].transform.position - enemy.transform.position;
-            dir.y = 0;
+            Vector3 dir = _path[0].transform.position - leader.transform.position;
+            dir.z = 0;
+
             if (dir.magnitude <= 0.01)
             {
                 _path.RemoveAt(0);
@@ -68,21 +69,20 @@ public class EnemyChase : State
             }
             else
             {
-                enemy.Move(dir);
+                leader.Move(dir);
             }
-
         }
         if (_path == null || _path.Count <= 0)
         {
-            Vector3 dir = _target-enemy.transform.position;
+            Vector3 dir = _target-leader.transform.position;
             dir.y = 0;
-            if (dir.magnitude <= 0.01)
+            if (dir.magnitude <= 0.1)
             {
-                fsm.ChangeState(EnemyState.BackToPatrol, enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position);
+                fsm.ChangeState(EnemyState.Idle, Vector3.zero);
             }
             else
             {
-                enemy.Move(dir);
+                leader.Move(dir);
             }
         }
     }

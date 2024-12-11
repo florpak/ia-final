@@ -10,7 +10,7 @@ public class EnemyFollow : State
 
     public override void OnEnter(Vector3 target)
     {
-        onFoundPlayer.Invoke(enemy.GetTargetPlayer().transform.position);
+        onFoundPlayer.Invoke(leader.GetTargetPlayer().transform.position);
     }
 
     public void SetFollowState(Vector3 target)
@@ -27,17 +27,17 @@ public class EnemyFollow : State
 
     public override void OnUpdate()
     {
-        if (enemy.GetTargetPlayer() != null)
+        if (leader.GetTargetPlayer() != null)
         {
-            if(Vector3.Distance(enemy.GetTargetPlayer().transform.position, enemy.transform.position) > 0.1)
+            if(Vector3.Distance(leader.GetTargetPlayer().transform.position, leader.transform.position) > 0.1)
             {
-                enemy.Move(enemy.GetTargetPlayer().transform.position - enemy.transform.position);
+                leader.Move(leader.GetTargetPlayer().transform.position - leader.transform.position);
             }
             
         }
         else
         {
-            fsm.ChangeState(EnemyState.BackToPatrol, enemy.GetWayPoints()[enemy.GetWayPointNumber()].transform.position);
+            fsm.ChangeState(EnemyState.BackToPatrol, leader.GetWayPoints()[leader.GetWayPointNumber()].transform.position);
         }
     }
 }

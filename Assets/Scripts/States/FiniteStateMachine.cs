@@ -32,7 +32,7 @@ public class FiniteStateMachine : MonoBehaviour
         {
             allStates.Add(enemyState, state);
             state.fsm = this;
-            state.enemy = this.enemy;
+            state.leader = this.enemy;
         }
         else
         {

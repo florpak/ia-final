@@ -17,7 +17,7 @@ public class LeaderIdleState : State
 
     public override void OnUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(leader.keyCode))
         {
             Vector3 click = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             click = new Vector3(click.x, click.y, 0);
