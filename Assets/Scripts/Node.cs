@@ -11,7 +11,7 @@ public class Node : MonoBehaviour
     List<Node> _neighbors = new List<Node>();
     public float cost = 1;
     public bool isBlocked = false;
-    [SerializeField] TextMeshProUGUI _textCost;
+    [SerializeField] LayerMask wallLayer;
 
 
     public List<Node> GetNeighbors()
@@ -22,18 +22,29 @@ public class Node : MonoBehaviour
         }
         Node neighbor;
         neighbor = _grid.GetNode(_x + 1, _y);
-        if (neighbor != null) _neighbors.Add(neighbor);
+        if (neighbor != null && CheckNeighborNode(neighbor)) _neighbors.Add(neighbor);
         neighbor = _grid.GetNode(_x - 1, _y);
-        if (neighbor != null) _neighbors.Add(neighbor);
+        if (neighbor != null && CheckNeighborNode(neighbor)) _neighbors.Add(neighbor);
         neighbor = _grid.GetNode(_x, _y + 1);
-        if (neighbor != null) _neighbors.Add(neighbor);
+        if (neighbor != null && CheckNeighborNode(neighbor)) _neighbors.Add(neighbor);
         neighbor = _grid.GetNode(_x, _y - 1);
-        if (neighbor != null) _neighbors.Add(neighbor);
+        if (neighbor != null && CheckNeighborNode(neighbor)) _neighbors.Add(neighbor);
 
         return _neighbors;
     }
-    public void Initialize(int x, int y, Vector3 pos, Grid grid)
+
+    public bool CheckNeighborNode(Node neighbor)
     {
+        if(!Physics.Raycast(transform.position, neighbor.transform.position - transform.position, (int)(transform.position - neighbor.transform.position).magnitude, wallLayer))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void Initialize(int x, int y, Vector3 pos, Grid grid, LayerMask wallLayer)
+    {
+        this.wallLayer = wallLayer;
         this._x = x;
         this._y = y;
         transform.position = pos;
@@ -54,7 +65,5 @@ public class Node : MonoBehaviour
     public void SetCost(float newCost)
     {
         cost = Mathf.Clamp(newCost, 1, 99);
-        //_textCost.text = cost.ToString();
-        //_textCost.enabled = cost == 1 ? false : true;
     }
 }

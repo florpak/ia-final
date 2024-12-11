@@ -9,6 +9,7 @@ public class Grid : MonoBehaviour
     [SerializeField] int _height;
     [SerializeField] GameObject _nodePrefab;
     [SerializeField] float _offset;
+    [SerializeField] LayerMask wallLayer;
     
     void Start()
     {
@@ -20,7 +21,7 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < _height; y++)
             {
                 GameObject newNode = Instantiate(_nodePrefab, transform);
-                newNode.GetComponent<Node>().Initialize(x, y, new Vector3(x + x * _offset, y + y * _offset, 0), this);
+                newNode.GetComponent<Node>().Initialize(x, y, new Vector3(x + x * _offset, y + y * _offset, 0), this, wallLayer);
                 _grid[x, y] = newNode;
                 listNodes.Add(newNode.GetComponent<Node>());
             }
