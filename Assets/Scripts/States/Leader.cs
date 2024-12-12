@@ -15,7 +15,7 @@ public class Leader : MonoBehaviour
     {
         fieldOfView = GetComponent<EnemyFieldOfView>();
         fsm = new FiniteStateMachine(this);
-        fsm.AddState(EnemyState.Chase, new EnemyChase());
+        fsm.AddState(EnemyState.Chase, new LeaderChase());
 
         fsm.AddState(EnemyState.BackToPatrol, new EnemyBackToPatrol());
         fsm.AddState(EnemyState.Follow, new EnemyFollow());

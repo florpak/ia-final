@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyChase : State
+public class LeaderChase : State
 {
     public float speed;
     List<Node> _path;
@@ -12,7 +12,7 @@ public class EnemyChase : State
     public override void OnEnter(Vector3 target)
     {
         _target = target;
-        _path = GameManager.Instance.pf.AStar(GetNearestNode(), GetNearestNodeToTarget(target));
+        _path = GameManager.Instance.pf.ThetaStar(GetNearestNode(), GetNearestNodeToTarget(target));
     }
 
     public Node GetNearestNode()

@@ -15,7 +15,7 @@ public class EnemyFollow : State
 
     public void SetFollowState(Vector3 target)
     {
-        if (fsm.GetCurrentState() is not EnemyChase)
+        if (fsm.GetCurrentState() is not LeaderChase)
         {
             fsm.ChangeState(EnemyState.Chase, target);
         }

@@ -19,7 +19,7 @@ public class FiniteStateMachine : MonoBehaviour
     }
     public void SetFollowState(Vector3 target)
     {
-        if (GetCurrentState() is not EnemyChase)
+        if (GetCurrentState() is not LeaderChase)
         {
             ChangeState(EnemyState.Chase, target);
         }
