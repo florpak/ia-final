@@ -53,10 +53,6 @@ public class LeaderChase : State
 
     public override void OnUpdate()
     {
-        //if(leader.GetTargetPlayer()!= null)
-        //{
-        //    fsm.ChangeState(EnemyState.Follow,leader.GetTargetPlayer().transform.position);
-        //}
         if (_path != null && _path.Count > 0)
         {
             Vector3 dir = _path[0].transform.position - leader.transform.position;
