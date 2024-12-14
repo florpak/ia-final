@@ -90,6 +90,7 @@ public class Pathfinding : MonoBehaviour
         int nextNext = current + 2;
         while (nextNext < path.Count)
         {
+            //Line of Sight
             if(InSight(path[current].transform.position, path[nextNext].transform.position))
             {
                 path.RemoveAt(current + 1);
@@ -105,6 +106,6 @@ public class Pathfinding : MonoBehaviour
 
     public bool InSight(Vector3 A, Vector3 B)
     {
-        return !Physics.Raycast(A - B, B - A, Vector3.Distance(A, B), wallMask);
+        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), wallMask);
     }
 }

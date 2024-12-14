@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Node : MonoBehaviour
 {
@@ -13,6 +14,15 @@ public class Node : MonoBehaviour
     public bool isBlocked = false;
     [SerializeField] LayerMask wallLayer;
 
+    private void Start()
+    {
+        EventManager.SubscribeToEvent(EventsType.WALL_BLOCK, GetNewNeighbors);
+    }
+
+    public void GetNewNeighbors(params object[] parameters)
+    {
+        _neighbors = CalculateNeighbors();
+    }
 
     public List<Node> GetNeighbors()
     {
@@ -20,6 +30,12 @@ public class Node : MonoBehaviour
         {
             return _neighbors;
         }
+        return CalculateNeighbors();
+    }
+
+    public List<Node> CalculateNeighbors()
+    {
+        _neighbors = new List<Node>();
         Node neighbor;
         neighbor = _grid.GetNode(_x + 1, _y);
         if (neighbor != null && CheckNeighborNode(neighbor)) _neighbors.Add(neighbor);
