@@ -1061,7 +1061,7 @@ PrefabInstance:
     - target: {fileID: 3588440336559110279, guid: c65d93c08c5dd6e49af614e6e61abf1e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7519796922775056719, guid: c65d93c08c5dd6e49af614e6e61abf1e,
         type: 3}
@@ -1335,6 +1335,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!1 &1385576860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385576862}
+  - component: {fileID: 1385576861}
+  m_Layer: 0
+  m_Name: EventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1385576861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385576860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d21e44ccf979a544b8e35ad71b3bb00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1385576862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385576860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 37.01848, y: 23.32505, z: 82.43321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1734239511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1445,7 +1489,7 @@ PrefabInstance:
     - target: {fileID: 3588440336559110279, guid: c65d93c08c5dd6e49af614e6e61abf1e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7519796922775056719, guid: c65d93c08c5dd6e49af614e6e61abf1e,
         type: 3}
@@ -1852,3 +1896,4 @@ SceneRoots:
   - {fileID: 249441807}
   - {fileID: 1215054827}
   - {fileID: 262423974}
+  - {fileID: 1385576862}
