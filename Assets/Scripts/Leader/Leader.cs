@@ -15,12 +15,12 @@ public class Leader : MonoBehaviour
     {
         fieldOfView = GetComponent<EnemyFieldOfView>();
         fsm = new FiniteStateMachine(this);
-        fsm.AddState(EnemyState.Chase, new LeaderChase());
+        fsm.AddState(LeaderState.Chase, new LeaderChase());
 
-        fsm.AddState(EnemyState.BackToPatrol, new EnemyBackToPatrol());
-        fsm.AddState(EnemyState.Follow, new EnemyFollow());
-        fsm.AddState(EnemyState.Idle, new LeaderIdleState());
-        fsm.ChangeState(EnemyState.Idle, transform.position);
+        fsm.AddState(LeaderState.BackToPatrol, new EnemyBackToPatrol());
+        fsm.AddState(LeaderState.Follow, new EnemyFollow());
+        fsm.AddState(LeaderState.Idle, new LeaderIdleState());
+        fsm.ChangeState(LeaderState.Idle, transform.position);
         EnemyFollow.onFoundPlayer += SetFollowState;
     }
 
@@ -28,7 +28,7 @@ public class Leader : MonoBehaviour
     {
         if (!(fsm.GetCurrentState() is EnemyFollow))
         {
-            fsm.ChangeState(EnemyState.Chase, target);
+            fsm.ChangeState(LeaderState.Chase, target);
         }
     }
 
@@ -41,7 +41,7 @@ public class Leader : MonoBehaviour
             Vector3 click = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             click = new Vector3(click.x, click.y, 0);
 
-            fsm.ChangeState(EnemyState.Chase, click);
+            fsm.ChangeState(LeaderState.Chase, click);
         }
     }
 

@@ -9,10 +9,11 @@ public class LeaderChase : State
     List<Node> _path;
     Vector3 _target;
 
+
     public override void OnEnter(Vector3 target)
     {
         _target = target;
-        _path = GameManager.Instance.pf.ThetaStar(GetNearestNode(), GetNearestNodeToTarget(target));
+        _path = GameManager.Instance.pf.CalculateMove(GetNearestNode(), GetNearestNodeToTarget(target));
     }
 
     public Node GetNearestNode()
@@ -72,9 +73,10 @@ public class LeaderChase : State
         {
             Vector3 dir = _target-leader.transform.position;
             dir.y = 0;
+
             if (dir.magnitude <= 0.1)
             {
-                fsm.ChangeState(EnemyState.Idle, Vector3.zero);
+                fsm.ChangeState(LeaderState.Idle, Vector3.zero);
             }
             else
             {
@@ -87,5 +89,10 @@ public class LeaderChase : State
     {
         _path = path;
         _path?.Reverse();
+    }
+
+    public bool InSight(Vector3 A, Vector3 B)
+    {
+        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), GameManager.Instance.wallMask);
     }
 }

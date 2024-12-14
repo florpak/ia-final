@@ -53,9 +53,9 @@ public class EnemyBackToPatrol : State
     {
         if (leader.GetTargetPlayer() != null)
         {
-            fsm.ChangeState(EnemyState.Follow, leader.GetTargetPlayer().transform.position);
+            fsm.ChangeState(LeaderState.Follow, leader.GetTargetPlayer().transform.position);
         }
-        if (_path == null || _path.Count <= 0) fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
+        if (_path == null || _path.Count <= 0) fsm.ChangeState(LeaderState.Patrol, new Vector3(0, 0, 0));
         if (_path != null && _path.Count != 0)
         {
             Vector3 dir = _path[0].transform.position - leader.transform.position;
@@ -64,7 +64,7 @@ public class EnemyBackToPatrol : State
             {
                 
                 leader.SetWayPointNumber(leader.GetWayPoints().IndexOf(_path[0]));
-                fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
+                fsm.ChangeState(LeaderState.Patrol, new Vector3(0, 0, 0));
             } 
             if (dir.magnitude <= 0.01)
             {
