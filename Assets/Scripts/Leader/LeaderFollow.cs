@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFollow : State
+public class LeaderFollow : State
 {
-
+    
     public delegate void FoundPlayer(Vector3 position);
     public static event FoundPlayer onFoundPlayer;
 

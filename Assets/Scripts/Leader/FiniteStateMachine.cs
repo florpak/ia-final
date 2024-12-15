@@ -11,7 +11,7 @@ public class FiniteStateMachine : MonoBehaviour
 
     private void Start()
     {
-        EnemyFollow.onFoundPlayer += SetFollowState;
+        LeaderFollow.onFoundPlayer += SetFollowState;
     }
     public FiniteStateMachine(Leader enemy)
     {

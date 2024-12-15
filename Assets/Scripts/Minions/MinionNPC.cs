@@ -77,7 +77,7 @@ public class MinionNPC : MonoBehaviour
         }
         foreach (MinionNPC agent in minions)
         {
-            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius)
+            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius) //Fiewl of View
             {
                 if (InSight(transform.position, agent.transform.position))
                     fsm.ChangeState(NPCStates.Attack, agent.transform.position);
@@ -90,7 +90,7 @@ public class MinionNPC : MonoBehaviour
         int count = 0;
         foreach (MinionNPC agent in minions)
         {
-            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius)
+            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius) 
             {
                 count++;
             }

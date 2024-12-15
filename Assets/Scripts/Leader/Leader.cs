@@ -8,7 +8,7 @@ public class Leader : MonoBehaviour
     [SerializeField] protected List<Node> wayPoints;
     [SerializeField] protected float velocity;
     [SerializeField] protected int waypointNumber = 0;
-    [SerializeField] protected EnemyFieldOfView fieldOfView;
+    [SerializeField] protected LeaderFieldOfView fieldOfView;
     [SerializeField] public int keyCode;
     public bool redAgent = false;
 
@@ -21,21 +21,21 @@ public class Leader : MonoBehaviour
 
     void Start()
     {
-        fieldOfView = GetComponent<EnemyFieldOfView>();
+        fieldOfView = GetComponent<LeaderFieldOfView>();
         fsm = new FiniteStateMachine(this);
         fsm.AddState(LeaderState.Chase, new LeaderChase());
 
-        fsm.AddState(LeaderState.BackToPatrol, new EnemyBackToPatrol());
-        fsm.AddState(LeaderState.Follow, new EnemyFollow());
+        fsm.AddState(LeaderState.BackToPatrol, new LeaderBackToPatrol());
+        fsm.AddState(LeaderState.Follow, new LeaderFollow());
         fsm.AddState(LeaderState.Idle, new LeaderIdleState());
         fsm.AddState(LeaderState.Attack, new LeaderAttack());
         fsm.ChangeState(LeaderState.Idle, transform.position);
-        EnemyFollow.onFoundPlayer += SetFollowState;
+        LeaderFollow.onFoundPlayer += SetFollowState;
     }
 
     public void SetFollowState(Vector3 target)
     {
-        if (!(fsm.GetCurrentState() is EnemyFollow))
+        if (!(fsm.GetCurrentState() is LeaderFollow))
         {
             fsm.ChangeState(LeaderState.Chase, target);
         }
