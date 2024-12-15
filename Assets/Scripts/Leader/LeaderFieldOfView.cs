@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFieldOfView : MonoBehaviour
+public class LeaderFieldOfView : MonoBehaviour
 {
     [SerializeField] private float viewRadius;
     [SerializeField] private float viewAngle;

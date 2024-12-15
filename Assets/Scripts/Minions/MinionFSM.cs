@@ -11,7 +11,7 @@ public class MinionFSM : MonoBehaviour
 
     private void Start()
     {
-        EnemyFollow.onFoundPlayer += SetFollowState;
+        LeaderFollow.onFoundPlayer += SetFollowState;
     }
     public MinionFSM(MinionNPC minion)
     {

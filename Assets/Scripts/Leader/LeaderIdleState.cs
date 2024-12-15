@@ -39,6 +39,7 @@ public class LeaderIdleState : State
         }
         foreach (MinionNPC npc in leader.minionsList)
         {
+            //Field of View
             if (Vector3.Distance(leader.transform.position, npc.transform.position) < leader.enemyAttackRadius)
             {
                 if (leader.InSight(leader.transform.position, npc.transform.position))

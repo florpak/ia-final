@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyBackToPatrol : State
+public class LeaderBackToPatrol : State
 {
     public float speed;
     List<Node> _path;
