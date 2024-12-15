@@ -183,9 +183,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 935294080}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 935294075}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6981744428569998568, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
       propertyPath: m_Name
@@ -462,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.13493824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
@@ -550,6 +601,20 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 8
+  redNPC:
+  - {fileID: 1753977959}
+  - {fileID: 1031146260}
+  - {fileID: 1819101369}
+  - {fileID: 602467099}
+  - {fileID: 2081285496}
+  blueNPC:
+  - {fileID: 1884771228}
+  - {fileID: 2111470646}
+  - {fileID: 1782375315}
+  - {fileID: 2028386519}
+  - {fileID: 2105933789}
+  redBase: {fileID: 1201716648}
+  blueBase: {fileID: 1985443270}
 --- !u!4 &262423974
 Transform:
   m_ObjectHideFlags: 0
@@ -786,8 +851,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1350856218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1290,17 +1355,17 @@ PrefabInstance:
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.502853
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.200001
+      value: -13.9
       objectReference: {fileID: 0}
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.13493824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
@@ -1452,6 +1517,12 @@ MonoBehaviour:
   waypointNumber: 0
   fieldOfView: {fileID: 0}
   keyCode: 1
+  redAgent: 1
+  bulletPrefab: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+    type: 3}
+  enemyAttackRadius: 4
+  minionsList: []
+  currentState: 0
 --- !u!4 &622232984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6730960119997280450, guid: 00ff7cc485695694f8c16c3b55ce7c0c,
@@ -1735,6 +1806,12 @@ MonoBehaviour:
   waypointNumber: 0
   fieldOfView: {fileID: 0}
   keyCode: 0
+  redAgent: 0
+  bulletPrefab: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+    type: 3}
+  enemyAttackRadius: 4
+  minionsList: []
+  currentState: 0
 --- !u!114 &935294079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1916,9 +1993,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 622232984}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: redNPC
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 622232981}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1989,9 +2122,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 622232984}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: redNPC
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 622232981}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2253,8 +2442,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1249370912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2420,7 +2609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1231456726
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2755,7 +2944,7 @@ RectTransform:
   m_Father: {fileID: 95289432}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2857,7 +3046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1649962868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3012,9 +3201,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 622232984}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: redNPC
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 622232981}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3249,7 +3494,7 @@ RectTransform:
   m_Father: {fileID: 863446058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3398,9 +3643,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 622232984}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: redNPC
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 622232981}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3472,9 +3773,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 935294080}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 935294075}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6981744428569998568, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
       propertyPath: m_Name
@@ -3744,9 +4096,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 935294080}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 935294075}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6981744428569998568, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
       propertyPath: m_Name
@@ -3896,9 +4299,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 935294080}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 935294075}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6981744428569998568, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
       propertyPath: m_Name
@@ -3935,7 +4389,7 @@ PrefabInstance:
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.13493824
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8969002540499604606, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a,
         type: 3}
@@ -3977,74 +4431,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b70074b7fe39c14a9ab6bb9646f0d1a, type: 3}
---- !u!1001 &1797475193435648567
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_Name
-      value: Bullet
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5592085935094446258, guid: 467f314f630e80845928248147e5a5fd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 467f314f630e80845928248147e5a5fd, type: 3}
 --- !u!1001 &3720471053973395503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4105,9 +4491,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 935294080}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 935294075}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805238746696092323, guid: a6a1b560f8584f143b85bd3cd439784d,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6981744428569998568, guid: a6a1b560f8584f143b85bd3cd439784d,
         type: 3}
       propertyPath: m_Name
@@ -4408,9 +4845,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
         type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 622232984}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: redNPC
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 622232981}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxForce
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: viewRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: dodgeRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+        type: 3}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: separationRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: enemyAttackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3147726970203742064, guid: 4d523b85f8608dd42b727030b367e6eb,
+        type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4441,4 +4934,3 @@ SceneRoots:
   - {fileID: 262423974}
   - {fileID: 1385576862}
   - {fileID: 995918344}
-  - {fileID: 1797475193435648567}

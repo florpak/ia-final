@@ -60,6 +60,6 @@ public class FiniteStateMachine : MonoBehaviour
 
 public enum LeaderState
 {
-    Idle, Patrol, Follow, BackToPatrol, Chase
+    Idle, Patrol, Follow, BackToPatrol, Chase, Attack
 }
 

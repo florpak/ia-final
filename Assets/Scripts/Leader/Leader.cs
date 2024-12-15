@@ -10,6 +10,14 @@ public class Leader : MonoBehaviour
     [SerializeField] protected int waypointNumber = 0;
     [SerializeField] protected EnemyFieldOfView fieldOfView;
     [SerializeField] public int keyCode;
+    public bool redAgent = false;
+
+    public GameObject bulletPrefab;
+    bool shootCoroutineActive = false;
+    public int enemyAttackRadius;
+    public List<MinionNPC> minionsList;
+
+    public LeaderState currentState;
 
     void Start()
     {
@@ -20,6 +28,7 @@ public class Leader : MonoBehaviour
         fsm.AddState(LeaderState.BackToPatrol, new EnemyBackToPatrol());
         fsm.AddState(LeaderState.Follow, new EnemyFollow());
         fsm.AddState(LeaderState.Idle, new LeaderIdleState());
+        fsm.AddState(LeaderState.Attack, new LeaderAttack());
         fsm.ChangeState(LeaderState.Idle, transform.position);
         EnemyFollow.onFoundPlayer += SetFollowState;
     }
@@ -68,5 +77,27 @@ public class Leader : MonoBehaviour
     public void SetWayPointNumber(int number)
     {
         this.waypointNumber = number;
+    }
+
+    public void shoot(Vector3 attackTarget)
+    {
+        if (!shootCoroutineActive)
+        {
+            StartCoroutine(shootCoroutine(attackTarget));
+        }
+    }
+
+    IEnumerator shootCoroutine(Vector3 attackTarget)
+    {
+        shootCoroutineActive = true;
+        GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position, transform.rotation);
+        bullet.GetComponent<Bullet>().Initialize(this, attackTarget);
+        yield return new WaitForSeconds(1.5f);
+        shootCoroutineActive = false;
+    }
+
+    public bool InSight(Vector3 A, Vector3 B)
+    {
+        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), GameManager.Instance.wallMask);
     }
 }

@@ -5,84 +5,147 @@ using UnityEngine.UI;
 
 public class MinionNPC : MonoBehaviour
 {
-    [SerializeField] protected float _maxSpeed = 2;
-    [SerializeField] float maxForce;
-    [SerializeField] protected float viewRadius, separationRadius;
-    [SerializeField] LayerMask obstacleLayer;
+    private MinionFSM fsm;
+    [SerializeField] public Vector3 velocity;
 
-    [SerializeField] Transform leader;
-    [SerializeField] float followRadius;
-    [SerializeField] float moveSpeed;
+    [SerializeField] public float speed;
+    public float size = 0.5f;
+    [SerializeField] public GameObject target;
+    [SerializeField] public float _maxSpeed;
+    [SerializeField] public float _maxForce;
+    [SerializeField] public float dodgeRadius, viewRadius, separationRadius, enemyAttackRadius;
+    [SerializeField] public LayerMask obstacleLayer;
+    public NPCStates currentState;
+    public bool redNPC;
+    List<MinionNPC> minions;
+    public GameObject bulletPrefab;
+    bool shootCoroutineActive = false;
+    bool recoverLifeActive = false;
+    public int life = 100;
 
-    public Vector3 velocity;
-
-    private void Update()
+    void Start()
     {
-        LeaderFollowing(leader);
-        
-    }
-
-    public Vector3 Seek(Vector3 targetPos, float speed)
-    {
-        Vector3 desired = targetPos - transform.position; // forma de calcular direcciones
-
-        //Debug.DrawLine(transform.position, targetPos);
-
-        desired.Normalize();
-        desired *= speed;
-
-        Vector3 steering = desired - velocity;
-        steering = Vector3.ClampMagnitude(steering, maxForce * Time.deltaTime); //Hace que el movimiento no sea brusco
-
-        return steering;
-    }
-
-    public void LeaderFollowing(Transform targetPos)
-    {
-        Vector3 leader = targetPos.position - transform.position;
-        if (leader.magnitude > followRadius)
+        if (redNPC)
         {
-            Vector3 arriveForce = leader.normalized * moveSpeed;
-            //Separation(GameManager.Instance.minions, arriveForce);
-            transform.position += arriveForce * Time.deltaTime;
+            GameManager.Instance.redNPC.Add(this);
+        }
+        else
+        {
+            GameManager.Instance.blueNPC.Add(this);
+        }
+        fsm = new MinionFSM(this);
+        fsm.AddState(NPCStates.Chase, new MinionChase());
+        fsm.AddState(NPCStates.Follow, new MinionFollow());
+        fsm.AddState(NPCStates.Idle, new MinionIdle());
+
+        fsm.AddState(NPCStates.BackToBase, new MinionBackSafeArea());
+
+        fsm.AddState(NPCStates.Attack, new MinionAttack());
+        fsm.ChangeState(NPCStates.Follow, Vector3.zero);
+        currentState = NPCStates.Follow;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+
+        fsm.Update();
+
+    }
+    public void Move(Vector3 dir)
+    {
+        transform.forward = dir;
+        transform.position += dir.normalized * speed * Time.deltaTime;
+    }
+
+    public bool InSight(Vector3 a, Vector3 b)
+    {
+        return !Physics.Raycast(a, b - a, Vector3.Distance(a, b), GameManager.Instance.wallMask);
+    }
+
+
+    public void SwitchToAttackState()
+    {
+        if (redNPC)
+        {
+            minions = GameManager.Instance.blueNPC;
+        }
+        else
+        {
+            minions = GameManager.Instance.redNPC;
+        }
+        foreach (MinionNPC agent in minions)
+        {
+            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius)
+            {
+                if (InSight(transform.position, agent.transform.position))
+                    fsm.ChangeState(NPCStates.Attack, agent.transform.position);
+            }
         }
     }
 
-    public Vector3 Separation(List<MinionNPC> minions, Vector3 arriveForce)
+    public void OutOfAttackState()
     {
-        Vector3 desired = arriveForce;
-
-        foreach (MinionNPC item in minions)
+        int count = 0;
+        foreach (MinionNPC agent in minions)
         {
-            if (item == this) continue;// Me salteo
-
-            Vector3 dist = item.transform.position - transform.position;
-
-            if (dist.sqrMagnitude > separationRadius * separationRadius) continue;//Salteo a los que estan lejos
-
-            desired += dist;
+            if (Vector3.Distance(transform.position, agent.transform.position) < enemyAttackRadius)
+            {
+                count++;
+            }
         }
-
-        if (desired == Vector3.zero) return Vector3.zero;//Si no hay agentes devulvo 0
-
-        desired *= -1;//Invierto el vector
-
-        return CalculateSteering(desired.normalized * _maxSpeed);
+        if (count == 0)
+        {
+            fsm.ChangeState(NPCStates.Follow, target.transform.position);
+        }
     }
 
-    protected Vector3 CalculateSteering(Vector3 desired) // Calcula el steering con un desire
+
+    public void Hurt()
     {
-        return Vector3.ClampMagnitude(desired - velocity, maxForce * Time.deltaTime);
+        Debug.Log("Hurt");
+        life -= 10;
+        Debug.Log("life is : " + life);
     }
 
-    protected Vector3 ObstacleAvoidance()
+    public void shoot(Vector3 attackTarget)
     {
-        //Hago seek hacia la direccion opuesta al obstaculo
-        if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.right, viewRadius, obstacleLayer))
-            return Seek(transform.position - transform.up, _maxSpeed);
-        else if (Physics.Raycast(transform.position - transform.up * 0.5f, transform.right, viewRadius, obstacleLayer))
-            return Seek(transform.position + transform.up, _maxSpeed);
+        if (!shootCoroutineActive)
+        {
+            StartCoroutine(shootCoroutine(attackTarget));
+        }
+    }
 
-        return Vector3.zero;
+    public void recoverLifeCoroutine()
+    {
+        if (recoverLifeActive == false && life < 100)
+        {
+            StartCoroutine(recoverLife());
+        }
+    }
+    IEnumerator shootCoroutine(Vector3 attackTarget)
+    {
+        shootCoroutineActive = true;
+        GameObject bullet = GameObject.Instantiate(bulletPrefab, transform.position, transform.rotation);
+        bullet.GetComponent<Bullet>().Initialize(this, attackTarget);
+        yield return new WaitForSeconds(1.5f);
+        shootCoroutineActive = false;
+    }
+
+    IEnumerator recoverLife()
+    {
+        recoverLifeActive = true;
+        life += 10;
+        yield return new WaitForSeconds(0.5f);
+        if (life < 100)
+        {
+            StartCoroutine(recoverLife());
+        }
+        recoverLifeActive = false;
+        if (life >= 100)
+        {
+            fsm.ChangeState(NPCStates.Chase, target.transform.position);
+        }
     }
 }

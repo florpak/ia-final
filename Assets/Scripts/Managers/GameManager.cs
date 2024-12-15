@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     public Pathfinding pf;
     [SerializeField] private List<Node> allNodes = new List<Node>();
     public LayerMask wallMask;
+    public List<MinionNPC> redNPC;
+    public List<MinionNPC> blueNPC;
+    public GameObject redBase;
+    public GameObject blueBase;
+
+
     public static GameManager Instance;
     public void SetStartingNode(Node node)
     {

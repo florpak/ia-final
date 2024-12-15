@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2472306185498844581}
   - component: {fileID: 3147726970203742064}
+  - component: {fileID: 1462323771780924426}
   m_Layer: 0
   m_Name: NPC2
   m_TagString: Untagged
@@ -46,17 +47,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45551869849c484ea2d3e961e9ed823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 3
-  maxForce: 1
-  viewRadius: 2
-  separationRadius: 4
+  velocity: {x: 0, y: 0, z: 0}
+  speed: 5
+  size: 0.5
+  target: {fileID: 0}
+  _maxSpeed: 5
+  _maxForce: 2
+  dodgeRadius: 1
+  viewRadius: 5
+  separationRadius: 1
+  enemyAttackRadius: 2
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  leader: {fileID: 0}
-  followRadius: 3
-  moveSpeed: 2
-  velocity: {x: 0, y: 0, z: 0}
+  currentState: 0
+  redNPC: 1
+  bulletPrefab: {fileID: 2133682688570352936, guid: 467f314f630e80845928248147e5a5fd,
+    type: 3}
+  life: 100
+--- !u!65 &1462323771780924426
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486556644677918233}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.310974, y: 1, z: 2.6574466}
+  m_Center: {x: -0.72195435, y: 1.0302975e-16, z: 0.02287507}
 --- !u!1 &5094087006939957645
 GameObject:
   m_ObjectHideFlags: 0
