@@ -25,7 +25,7 @@ public class Pathfinding : MonoBehaviour
         while (frontier.Count > 0)
         {
             Node current = frontier.Get();
-            GameManager.Instance.PaintGameObject(current.gameObject, Color.blue);
+            //GameManager.Instance.PaintGameObject(current.gameObject, Color.blue);
             if (current == goal)
             {
 

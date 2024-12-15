@@ -43,7 +43,7 @@ public class MinionNPC : MonoBehaviour
         if (leader.magnitude > followRadius)
         {
             Vector3 arriveForce = leader.normalized * moveSpeed;
-            Separation(GameManager.Instance.minions, arriveForce);
+            //Separation(GameManager.Instance.minions, arriveForce);
             transform.position += arriveForce * Time.deltaTime;
         }
     }
@@ -85,5 +85,4 @@ public class MinionNPC : MonoBehaviour
 
         return Vector3.zero;
     }
-
 }
