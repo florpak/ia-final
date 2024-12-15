@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] float width, height;
-    public Agent leader;
-    public List<Agent> agents;
-
+    public List<MinionNPC> minions = new List<MinionNPC>();
     private Node _startingNode;
     private Node _goalNode;
     public Pathfinding pf;
     [SerializeField] private List<Node> allNodes = new List<Node>();
     public LayerMask wallMask;
-    
-
     public static GameManager Instance;
-
     public void SetStartingNode(Node node)
     {
         if (_startingNode != null) PaintGameObject(_startingNode.gameObject, Color.white);
@@ -54,26 +48,5 @@ public class GameManager : MonoBehaviour
     public List<Node> GetNodes()
     {
         return allNodes;
-    }
-
-
-    //Agents
-    public Vector3 AdjustPositionsToBounds(Vector3 pos)
-    {
-        float boundWidth = width / 2;
-        float boundHeight = height / 2;
-
-        if (pos.x > boundWidth) pos.x = -boundWidth;
-        if (pos.x < -boundWidth) pos.x = boundWidth;
-        if (pos.z > boundHeight) pos.z = -boundHeight;
-        if (pos.z < -boundHeight) pos.z = boundHeight;
-        return pos;
-
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(width, 0, height));
     }
 }

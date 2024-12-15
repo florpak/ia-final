@@ -3,141 +3,87 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MinionNPC : Agent
+public class MinionNPC : MonoBehaviour
 {
-    private FiniteStateMachine fsm;
-    //[SerializeField] protected float size = 1f;
-    List<Agent> boidsList;
-    List<Agent> boidsInRange;
-    [SerializeField]
-    protected Agent targetAgent;
-    [SerializeField]
-    protected float stamina;
-    [SerializeField]
-    protected List<GameObject> wayPoints;
-    [SerializeField] protected int waypointNumber = 0;
+    [SerializeField] protected float _maxSpeed = 2;
+    [SerializeField] float maxForce;
+    [SerializeField] protected float viewRadius, separationRadius;
+    [SerializeField] LayerMask obstacleLayer;
 
-    [SerializeField] protected Slider slider;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Transform leader;
+    [SerializeField] float followRadius;
+    [SerializeField] float moveSpeed;
+
+    public Vector3 velocity;
+
+    private void Update()
     {
-        //slider = GetComponentInChildren<Slider>();
-        slider.value = this.stamina;
-        size = 0.5f;
-        //GameManager.Instance.enemyAgent.Add(this);
-        //fsm = new FiniteStateMachine(this);
-        //fsm.AddState(PlayerState.Idle, new IdleState());
-        //fsm.AddState(PlayerState.Patrol, new PatrolState());
-        //fsm.AddState(PlayerState.Chase, new ChaseState());
-        //fsm.ChangeState(PlayerState.Idle);
-        //boidsList = GameManager.Instance.agents;
-        //GameManager.Instance.playerAgent.Add(this);
+        LeaderFollowing(leader);
+        
     }
 
-    // Update is called once per frame
-    void Update()
+    public Vector3 Seek(Vector3 targetPos, float speed)
     {
-        GetTarget();
-        fsm.Update();
+        Vector3 desired = targetPos - transform.position; // forma de calcular direcciones
 
+        //Debug.DrawLine(transform.position, targetPos);
+
+        desired.Normalize();
+        desired *= speed;
+
+        Vector3 steering = desired - velocity;
+        steering = Vector3.ClampMagnitude(steering, maxForce * Time.deltaTime); //Hace que el movimiento no sea brusco
+
+        return steering;
     }
 
-    private void GetTarget()
+    public void LeaderFollowing(Transform targetPos)
     {
-        boidsInRange = new List<Agent>();
-
-        foreach (Agent item in boidsList)
+        Vector3 leader = targetPos.position - transform.position;
+        if (leader.magnitude > followRadius)
         {
-            if (Vector3.Distance(transform.position, item.transform.position) > viewRadius) continue;
-            boidsInRange.Add(item);
+            Vector3 arriveForce = leader.normalized * moveSpeed;
+            Separation(GameManager.Instance.minions, arriveForce);
+            transform.position += arriveForce * Time.deltaTime;
         }
-        if (boidsInRange.Count == 0)
-        {
-            targetAgent = null;
-        }
-        else
-        {
-            //targetAgent = boidsList.OrderBy(X => Vector3.Distance(X.transform.position, transform.position)).FirstOrDefault();
-        }
-
-
     }
 
-    private void UpdateToChase()
+    public Vector3 Separation(List<MinionNPC> minions, Vector3 arriveForce)
     {
-        foreach (Boid item in boidsList)
+        Vector3 desired = arriveForce;
+
+        foreach (MinionNPC item in minions)
         {
-            /*if (Vector3.Distance(transform.position,item.transform.position< viewRadius){
-                fsm.ChangeState(PlayerState.Attack,);
-            })*/
+            if (item == this) continue;// Me salteo
+
+            Vector3 dist = item.transform.position - transform.position;
+
+            if (dist.sqrMagnitude > separationRadius * separationRadius) continue;//Salteo a los que estan lejos
+
+            desired += dist;
         }
 
+        if (desired == Vector3.zero) return Vector3.zero;//Si no hay agentes devulvo 0
+
+        desired *= -1;//Invierto el vector
+
+        return CalculateSteering(desired.normalized * _maxSpeed);
     }
 
-    public Transform GetTransform()
+    protected Vector3 CalculateSteering(Vector3 desired) // Calcula el steering con un desire
     {
-        return this.transform;
+        return Vector3.ClampMagnitude(desired - velocity, maxForce * Time.deltaTime);
     }
 
-    public float GetSize()
+    protected Vector3 ObstacleAvoidance()
     {
-        return this.size;
-    }
-    public float GetMaxSpeed()
-    {
-        return this._maxSpeed;
-    }
-    public float GetMaxForce()
-    {
-        return this._maxForce;
-    }
-    public float GetViewRadius()
-    {
-        return this.viewRadius;
-    }
-    public Vector3 GetVelocity()
-    {
-        return this.velocity;
-    }
-    public void SetVelocity(Vector3 velocity)
-    {
-        this.velocity = velocity;
-    }
-    public LayerMask GetObstacleLayer()
-    {
-        return this.obstacleLayer;
-    }
-    public float GetStamina()
-    {
-        return this.stamina;
-    }
-    public float AddStamina(float amount)
-    {
-        this.stamina += amount;
-        slider.value = this.stamina;
-        return this.stamina;
-    }
-    public float SubstractStamina(float amount)
-    {
-        this.stamina -= amount * 3;
-        slider.value = this.stamina;
-        return this.stamina;
-    }
-    public List<GameObject> GetWayPoints()
-    {
-        return this.wayPoints;
-    }
-    public int GetWayPointNumber()
-    {
-        return this.waypointNumber;
+        //Hago seek hacia la direccion opuesta al obstaculo
+        if (Physics.Raycast(transform.position + transform.up * 0.5f, transform.right, viewRadius, obstacleLayer))
+            return Seek(transform.position - transform.up, _maxSpeed);
+        else if (Physics.Raycast(transform.position - transform.up * 0.5f, transform.right, viewRadius, obstacleLayer))
+            return Seek(transform.position + transform.up, _maxSpeed);
+
+        return Vector3.zero;
     }
 
-    public void SetWayPointNumber(int number)
-    {
-        this.waypointNumber = number;
-    }
-    public Agent GetTargetAgent()
-    {
-        return targetAgent;
-    }
 }
