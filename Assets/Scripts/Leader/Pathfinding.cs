@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour
 {
-    [SerializeField] LayerMask wallMask;
-
     float HeuristicDistance(Vector3 a, Vector3 b)
     {
         Vector3 distance = b - a;
@@ -104,8 +102,23 @@ public class Pathfinding : MonoBehaviour
         return path;
     }
 
+    public List<Node> CalculateMove(Node start, Node end)
+    {
+        if (InSight(start.transform.position, end.transform.position))
+        {
+            List<Node> nodeList = new List<Node>();
+            nodeList.Add(end);
+            return nodeList;
+        }
+        else
+        {
+            return ThetaStar(start, end);
+
+        }
+    }
+
     public bool InSight(Vector3 A, Vector3 B)
     {
-        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), wallMask);
+        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), GameManager.Instance.wallMask);
     }
 }

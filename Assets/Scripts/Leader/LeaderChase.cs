@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class EnemyBackToPatrol : State
+public class LeaderChase : State
 {
     public float speed;
     List<Node> _path;
+    Vector3 _target;
+
 
     public override void OnEnter(Vector3 target)
     {
-        _path = GameManager.Instance.pf.AStar(GetNearestNode(), GetNearestNodeToTarget(target));
+        _target = target;
+        _path = GameManager.Instance.pf.CalculateMove(GetNearestNode(), GetNearestNodeToTarget(target));
     }
 
     public Node GetNearestNode()
@@ -51,21 +54,11 @@ public class EnemyBackToPatrol : State
 
     public override void OnUpdate()
     {
-        if (leader.GetTargetPlayer() != null)
-        {
-            fsm.ChangeState(EnemyState.Follow, leader.GetTargetPlayer().transform.position);
-        }
-        if (_path == null || _path.Count <= 0) fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
-        if (_path != null && _path.Count != 0)
+        if (_path != null && _path.Count > 0)
         {
             Vector3 dir = _path[0].transform.position - leader.transform.position;
-            dir.y = 0;
-            if (leader.GetWayPoints().Contains(_path[0]) && dir.magnitude <= 0.01)
-            {
-                
-                leader.SetWayPointNumber(leader.GetWayPoints().IndexOf(_path[0]));
-                fsm.ChangeState(EnemyState.Patrol, new Vector3(0, 0, 0));
-            } 
+            dir.z = 0;
+
             if (dir.magnitude <= 0.01)
             {
                 _path.RemoveAt(0);
@@ -73,9 +66,22 @@ public class EnemyBackToPatrol : State
             }
             else
             {
-                leader.Move(_path[0].transform.position - leader.transform.position);
+                leader.Move(dir);
             }
+        }
+        if (_path == null || _path.Count <= 0)
+        {
+            Vector3 dir = _target-leader.transform.position;
+            dir.y = 0;
 
+            if (dir.magnitude <= 0.1)
+            {
+                fsm.ChangeState(LeaderState.Idle, Vector3.zero);
+            }
+            else
+            {
+                leader.Move(dir);
+            }
         }
     }
 
@@ -83,5 +89,10 @@ public class EnemyBackToPatrol : State
     {
         _path = path;
         _path?.Reverse();
+    }
+
+    public bool InSight(Vector3 A, Vector3 B)
+    {
+        return !Physics.Raycast(A, B - A, Vector3.Distance(A, B), GameManager.Instance.wallMask);
     }
 }

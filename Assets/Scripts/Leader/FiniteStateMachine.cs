@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FiniteStateMachine : MonoBehaviour
 {
-    Dictionary<EnemyState, State> allStates = new Dictionary<EnemyState, State>();
+    Dictionary<LeaderState, State> allStates = new Dictionary<LeaderState, State>();
     State _currentState;
     Leader enemy;
 
@@ -21,11 +21,11 @@ public class FiniteStateMachine : MonoBehaviour
     {
         if (GetCurrentState() is not LeaderChase)
         {
-            ChangeState(EnemyState.Chase, target);
+            ChangeState(LeaderState.Chase, target);
         }
     }
 
-    public void AddState(EnemyState enemyState, State state)
+    public void AddState(LeaderState enemyState, State state)
     {
 
         if (!allStates.ContainsKey(enemyState))
@@ -45,7 +45,7 @@ public class FiniteStateMachine : MonoBehaviour
         _currentState.OnUpdate();
     }
 
-    public void ChangeState(EnemyState state, Vector3 target)
+    public void ChangeState(LeaderState state, Vector3 target)
     {
         _currentState?.OnExit();
         if (allStates.ContainsKey(state)) _currentState = allStates[state];
@@ -58,8 +58,8 @@ public class FiniteStateMachine : MonoBehaviour
 }
 
 
-public enum EnemyState
+public enum LeaderState
 {
-    Idle, Patrol, Follow, BackToPatrol, Chase
+    Idle, Patrol, Follow, BackToPatrol, Chase, Attack
 }
 

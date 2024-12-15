@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class LeaderChase : State
+public class MinionChase : MinionStates
 {
     public float speed;
     List<Node> _path;
@@ -12,7 +11,8 @@ public class LeaderChase : State
     public override void OnEnter(Vector3 target)
     {
         _target = target;
-        _path = GameManager.Instance.pf.ThetaStar(GetNearestNode(), GetNearestNodeToTarget(target));
+        minion.currentState = NPCStates.Chase;
+        _path = GameManager.Instance.pf.CalculateMove(GetNearestNode(), GetNearestNodeToTarget(target));
     }
 
     public Node GetNearestNode()
@@ -21,7 +21,7 @@ public class LeaderChase : State
         Node nearestNodeToTarget = null;
         foreach (Node node in GameManager.Instance.GetNodes())
         {
-            float nodeDistanceToNode = Vector3.Distance(node.transform.position, leader.transform.position);
+            float nodeDistanceToNode = Vector3.Distance(node.transform.position, minion.transform.position);
             if (nodeDistanceToNode < nearestDistance)
             {
                 nearestDistance = nodeDistanceToNode;
@@ -53,32 +53,42 @@ public class LeaderChase : State
 
     public override void OnUpdate()
     {
+        minion.SwitchToAttackState();
+        if (InSight(minion.transform.position, minion.target.transform.position))
+        {
+            minion.currentState = NPCStates.Chase;
+            fsm.ChangeState(NPCStates.Follow, minion.target.transform.position);
+        }
+
         if (_path != null && _path.Count > 0)
         {
-            Vector3 dir = _path[0].transform.position - leader.transform.position;
+            Vector3 dir = _path[0].transform.position - minion.transform.position;
             dir.z = 0;
 
-            if (dir.magnitude <= 0.01)
+            if (dir.magnitude <= 0.5)
             {
+
                 _path.RemoveAt(0);
 
             }
             else
             {
-                leader.Move(dir);
+
+                minion.Move(dir);
             }
+
         }
         if (_path == null || _path.Count <= 0)
         {
-            Vector3 dir = _target-leader.transform.position;
-            dir.y = 0;
+            Vector3 dir = _target - minion.transform.position;
+            dir.z = 0;
             if (dir.magnitude <= 0.1)
             {
-                fsm.ChangeState(EnemyState.Idle, Vector3.zero);
+                fsm.ChangeState(NPCStates.Follow, minion.target.transform.position);
             }
             else
             {
-                leader.Move(dir);
+                minion.Move(dir);
             }
         }
     }
@@ -87,5 +97,9 @@ public class LeaderChase : State
     {
         _path = path;
         _path?.Reverse();
+    }
+    public bool InSight(Vector3 a, Vector3 b)
+    {
+        return !Physics.Raycast(a, b - a, Vector3.Distance(a, b), GameManager.Instance.wallMask);
     }
 }

@@ -17,7 +17,7 @@ public class EnemyFollow : State
     {
         if (fsm.GetCurrentState() is not LeaderChase)
         {
-            fsm.ChangeState(EnemyState.Chase, target);
+            fsm.ChangeState(LeaderState.Chase, target);
         }
     }
     public override void OnExit()
@@ -37,7 +37,7 @@ public class EnemyFollow : State
         }
         else
         {
-            fsm.ChangeState(EnemyState.BackToPatrol, leader.GetWayPoints()[leader.GetWayPointNumber()].transform.position);
+            fsm.ChangeState(LeaderState.BackToPatrol, leader.GetWayPoints()[leader.GetWayPointNumber()].transform.position);
         }
     }
 }
